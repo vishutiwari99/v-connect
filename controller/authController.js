@@ -3,7 +3,7 @@ const Users = require('../models/userModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
-const authCtrl = {
+const authController = {
     register: async (req, res) => {
         try {
             const { fullname, username, email, password, gender } = req.body
@@ -125,4 +125,4 @@ const createRefreshToken = (payload) => {
     return jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '30d' })
 }
 
-module.exports = authCtrl
+module.exports = authController
