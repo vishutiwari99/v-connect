@@ -1,4 +1,6 @@
 require('dotenv').config()
+// Routes Import
+const authRoutes = require('./routers/authRouter')
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -10,9 +12,9 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 
-app.get('/', (req, res) => {
-    res.json({ msg: "Hello" })
-})
+
+// Routes
+app.use('/api', authRoutes);
 
 const URI = process.env.MONGODB_URL;
 mongoose.connect(URI, {
