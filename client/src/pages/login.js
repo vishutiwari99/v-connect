@@ -1,20 +1,24 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { LockClosedIcon, GlobeIcon } from '@heroicons/react/solid'
+// actions import
+import { loginAPI } from '../redux/auth/authSlice'
 const Login = () => {
     const initialState = { email: '', password: '' }
     const [userData, setUserData] = useState(initialState)
     const { email, password } = userData;
+    const dispatch = useDispatch();
 
     const handleChangeInput = e => {
         const { name, value } = e.target;
         setUserData({ ...userData, [name]: value })
     }
 
-    const handleSubmit = () => {
-        // e.preventDefault();
-        console.log(userData)
-        alert("hey")
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(loginAPI(userData));
+
     }
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -30,7 +34,7 @@ const Login = () => {
                     <h2 className="mt-2 text-center text-3xl font-extrabold text-indigo-600">V-connect</h2>
                     <h2 className="mt-5 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
                 </div>
-                <form className="mt-8 space-y-6"  >
+                <form onSubmit={handleSubmit} className="mt-8 space-y-6"  >
                     <input type="hidden" name="remember" defaultValue="true" />
                     <div className="rounded-md shadow-sm -space-y-px">
                         <div>
@@ -81,19 +85,20 @@ const Login = () => {
                         </div>
 
                         <div className="text-sm">
-                            <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                            <Link to="/" className="font-medium text-indigo-600 hover:text-indigo-500">
                                 Forgot your password?
-                </a>
+                </Link>
                         </div>
                     </div>
 
                     <div>
-                        <button onClick={() => handleSubmit}
-                            // type="submit"
+                        <button
+                            type="submit"
+                            // onClick={() => handleSubmit}
                             className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 
                             ${(!email || !password) ? "disabled:opacity-50 ..." : ""} 
                             `}
-                            disabled
+                            disabled={(!email || !password) ? true : false}
                         >
                             <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                                 <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />

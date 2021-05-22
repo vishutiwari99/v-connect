@@ -21,6 +21,7 @@ export const authSlice = createSlice({
             console.log(payload);
             state.token = payload.data.access_token
             state.user = payload.data.user
+            localStorage.setItem("firstLogin", true)
         },
         [loginAPI.rejected]: (state, action) => {
             state.status = 'Failed'
