@@ -20,7 +20,7 @@ export const authSlice = createSlice({
         [loginAPI.fulfilled]: (state, { payload }) => {
             state.token = payload.data.access_token
             state.user = payload.data.user
-            state.status = 'success'
+            state.status = payload.data.msg
             localStorage.setItem("firstLogin", true)
         },
         [loginAPI.rejected]: (state, action) => {

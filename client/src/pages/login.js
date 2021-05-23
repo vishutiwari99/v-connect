@@ -1,15 +1,18 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { LockClosedIcon, GlobeIcon, EyeIcon, EyeOffIcon } from '@heroicons/react/solid'
 // actions import
 import { loginAPI } from '../redux/auth/authSlice'
+import Notify from '../components/alert/Toast'
+import Loading from '../components/alert/Loading'
 const Login = () => {
     const initialState = { email: '', password: '' }
     const [userData, setUserData] = useState(initialState)
     const { email, password } = userData;
     const [visible, setVisible] = useState(false);
     const dispatch = useDispatch();
+    const status = useSelector(state => state.auth.status)
 
     const handleChangeInput = e => {
         const { name, value } = e.target;
@@ -21,10 +24,12 @@ const Login = () => {
         dispatch(loginAPI(userData));
 
     }
-    return (
+    return (<>
+        {/* {status && <Notify message={status} />} */}
         <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full space-y-8">
                 <div>
+                    {/* {status === 'loading' && <Loading />} */}
                     {/* <img
                         className="mx-auto h-20 w-auto"
                         src="./mainlogo.svg"
@@ -71,7 +76,6 @@ const Login = () => {
                             />
                             <span onClick={() => setVisible(!visible)} className="absolute right-0 inset-y-0  flex items-center ">
                                 {visible ? <EyeIcon className="h-5 w-10" /> : <EyeOffIcon className="h-5 w-10" />}
-                                {/* <label className="bg-gray-300 hover:bg-gray-400 rounded px-2 py-1 text-sm text-gray-600 font-mono cursor-pointer js-password-label" for="toggle">show</label> */}
                             </span>
                         </div>
                     </div>
@@ -100,7 +104,6 @@ const Login = () => {
                     <div>
                         <button
                             type="submit"
-                            // onClick={() => handleSubmit}
                             className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 
                             ${(!email || !password) ? "disabled:opacity-50 ..." : ""} 
                             `}
@@ -122,6 +125,7 @@ const Login = () => {
                 </form>
             </div>
         </div >
+    </>
     )
 }
 
