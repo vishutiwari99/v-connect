@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { LockClosedIcon, GlobeIcon } from '@heroicons/react/solid'
+import { LockClosedIcon, GlobeIcon, EyeIcon, EyeOffIcon } from '@heroicons/react/solid'
 // actions import
 import { loginAPI } from '../redux/auth/authSlice'
 const Login = () => {
     const initialState = { email: '', password: '' }
     const [userData, setUserData] = useState(initialState)
     const { email, password } = userData;
+    const [visible, setVisible] = useState(false);
     const dispatch = useDispatch();
 
     const handleChangeInput = e => {
@@ -53,21 +54,25 @@ const Login = () => {
                                 onChange={handleChangeInput}
                             />
                         </div>
-                        <div>
-                            <label htmlFor="password" className="sr-only">
+                        <div className="relative">
+                            <label htmlFor="password" className=" sr-only">
                                 Password
                             </label>
                             <input
                                 id="password"
                                 name="password"
-                                type="password"
+                                type={visible ? "text" : "password"}
                                 autoComplete="current-password"
                                 required
                                 value={password}
-                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500  sm:text-sm"
                                 placeholder="Password"
                                 onChange={handleChangeInput}
                             />
+                            <span onClick={() => setVisible(!visible)} className="absolute right-0 inset-y-0  flex items-center ">
+                                {visible ? <EyeIcon className="h-5 w-10" /> : <EyeOffIcon className="h-5 w-10" />}
+                                {/* <label className="bg-gray-300 hover:bg-gray-400 rounded px-2 py-1 text-sm text-gray-600 font-mono cursor-pointer js-password-label" for="toggle">show</label> */}
+                            </span>
                         </div>
                     </div>
 
@@ -78,6 +83,7 @@ const Login = () => {
                                 name="remember_me"
                                 type="checkbox"
                                 className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+
                             />
                             <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-900">
                                 Remember me
