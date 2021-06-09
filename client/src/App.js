@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify';
 
 import './App.css';
 import Alert from './components/alert/Alert';
@@ -15,8 +16,8 @@ function App() {
       <div className="App">
         <div className="max-w-2xl mx-auto">
           {/* <Notify /> */}
+          <ToastContainer />
           <Alert />
-
           <Route exact path="/" component={Home} />
           <Route exact path="/:page" component={PageRender} />
           <Route exact path="/:page/:id" component={PageRender} />

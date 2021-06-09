@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom'
 import { LockClosedIcon, GlobeIcon, EyeIcon, EyeOffIcon } from '@heroicons/react/solid'
 // actions import
 import { loginAPI } from '../redux/auth/authSlice'
-import Notify from '../components/alert/Toast'
-import Loading from '../components/alert/Loading'
+// import Notify from '../components/alert/Toast'
+// import Loading from '../components/alert/Loading'
+import { login } from '../redux/notify/notifySlice'
 const Login = () => {
     const initialState = { email: '', password: '' }
     const [userData, setUserData] = useState(initialState)
@@ -22,6 +23,7 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(loginAPI(userData));
+        // dispatch(login(userData));
 
     }
     return (<>
@@ -29,12 +31,6 @@ const Login = () => {
         <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full space-y-8">
                 <div>
-                    {/* {status === 'loading' && <Loading />} */}
-                    {/* <img
-                        className="mx-auto h-20 w-auto"
-                        src="./mainlogo.svg"
-                        alt="Workflow"
-                    /> */}
                     <GlobeIcon className="mx-auto h-32 w-auto text-indigo-400" />
 
                     <h2 className="mt-2 text-center text-3xl font-extrabold text-indigo-600">V-connect</h2>
