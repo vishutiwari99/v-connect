@@ -2,18 +2,14 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { LockClosedIcon, GlobeIcon, EyeIcon, EyeOffIcon } from '@heroicons/react/solid'
-// actions import
-import { loginAPI } from '../redux/auth/authSlice'
-// import Notify from '../components/alert/Toast'
-// import Loading from '../components/alert/Loading'
-import { login } from '../redux/notify/notifySlice'
+import { login } from '../redux/actions/authAction'
 const Login = () => {
     const initialState = { email: '', password: '' }
     const [userData, setUserData] = useState(initialState)
     const { email, password } = userData;
     const [visible, setVisible] = useState(false);
     const dispatch = useDispatch();
-    const status = useSelector(state => state.auth.status)
+    // const status = useSelector(state => state.auth.status)
 
     const handleChangeInput = e => {
         const { name, value } = e.target;
@@ -22,8 +18,7 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(loginAPI(userData));
-        // dispatch(login(userData));
+        dispatch(login(userData));
 
     }
     return (<>
