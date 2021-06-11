@@ -29,6 +29,7 @@ function App() {
     <Router>
       <ToastContainer />
       <div className="App">
+        <input type="checkbox" hidden id="theme" />
         <div className="container px-28 mx-auto">
           {auth.token && <Header />}
           <Alert />
