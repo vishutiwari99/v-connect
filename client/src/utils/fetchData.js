@@ -1,13 +1,11 @@
 import axios from 'axios'
 
-const domain = "http://localhost:5000";
 export const getDataAPI = async (url, token) => {
     const res = await axios.get(`/api/${url}`, {
         headers: { Authorization: token }
     })
     return res;
 }
-
 
 export const postDataAPI = async (url, post, token) => {
     const res = await axios.post(`/api/${url}`, post, {
