@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { LockClosedIcon, GlobeIcon, EyeIcon, EyeOffIcon } from '@heroicons/react/solid'
 import { login } from '../redux/actions/authAction'
 const Login = () => {
@@ -9,8 +9,13 @@ const Login = () => {
     const { email, password } = userData;
     const [visible, setVisible] = useState(false);
     const dispatch = useDispatch();
+    const history = useHistory();
+    const { auth } = useSelector(state => state);
     // const status = useSelector(state => state.auth.status)
 
+    useEffect(() => {
+        if (auth.token) history.push('/')
+    }, [auth.token, history])
     const handleChangeInput = e => {
         const { name, value } = e.target;
         setUserData({ ...userData, [name]: value })
@@ -21,8 +26,7 @@ const Login = () => {
         dispatch(login(userData));
 
     }
-    return (<>
-        {/* {status && <Notify message={status} />} */}
+    return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full space-y-8">
                 <div>
@@ -114,12 +118,9 @@ const Login = () => {
                         </p>
                     </div>
                 </form>
-
-
-
             </div>
         </div >
-    </>
+
     )
 }
 
