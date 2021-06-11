@@ -1,33 +1,31 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import Loading from './Loading';
+import { useSelector, useDispatch } from 'react-redux'
+import Loading from './Loading'
 // import Toast from './Toast'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
-const Notify = () => {
+const Alert = () => {
+    const { auth, alert } = useSelector(state => state)
+    const customId = "custom-id-yes";
 
-    const { status } = useSelector(state => state.auth);
+    const successToast = (msg) => {
+        toast.success(msg, {
+            toastId: customId
+        });
+    }
+    const errorToast = (msg) => {
+        toast.error(msg, {
+            toastId: customId
+        });
+    }
+
     return (
-
-        <div>
-            {status === 'loading' && <Loading />}
-            {status === 'Login Success!' && toast("login success")}
-            {/* {
-            alert.error && 
-            <Toast msg={{title: 'Error', body: alert.error}}
-            handleShow={() => dispatch({type: GLOBALTYPES.ALERT, payload: {}})} 
-            bgColor="bg-danger" />
-        }
-
-        {
-            alert.success && 
-            <Toast msg={{title: 'Success', body: alert.success}} 
-            handleShow={() => dispatch({type: GLOBALTYPES.ALERT, payload: {}})}
-            bgColor="bg-success" />
-        } */}
-        </div>
+        <>
+            {alert.error && errorToast(alert.error)}
+            {alert.loading && <Loading />}
+            {alert.success && successToast(alert.success)}
+        </>
     )
 }
 
-export default Notify
+export default Alert
