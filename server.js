@@ -1,6 +1,7 @@
 require('dotenv').config()
 // Routes Import
 const authRoutes = require('./routers/authRouter')
+const userRoutes = require('./routers/userRouter')
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
@@ -17,6 +18,7 @@ app.use(morgan('dev'))
 
 // Routes
 app.use('/api', authRoutes);
+app.use('/api', userRoutes);
 
 const URI = process.env.MONGODB_URL;
 mongoose.connect(URI, {
