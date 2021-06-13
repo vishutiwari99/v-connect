@@ -4,7 +4,7 @@ const initialState = {
 
 }
 
-const authRedcuer = (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case GLOBALTYPES.AUTH:
             return action.payload;
@@ -13,4 +13,4 @@ const authRedcuer = (state = initialState, action) => {
     }
 }
 
-export default authRedcuer
+export default authReducer
