@@ -5,12 +5,15 @@ import { ToastContainer } from 'react-toastify'
 
 import Alert from './components/notify/Alert';
 import PageRender from './customRouter/PageRender';
+import PrivateRouter from './customRouter/PrivateRouter';
+
 import Home from './pages/home';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { refreshToken } from './redux/actions/authAction';
 import Login from './pages/login';
-import Header from './components/Header';
+import Register from './pages/register';
+import Header from './components/header/Header';
 
 if (typeof window !== "undefined") {
   injectStyle();
@@ -34,8 +37,10 @@ function App() {
           {auth.token && <Header />}
           <Alert />
           <Route exact path="/" component={auth.token ? Home : Login} />
-          <Route exact path="/:page" component={PageRender} />
-          <Route exact path="/:page/:id" component={PageRender} />
+          <Route exact path="/register" component={Register} />
+
+          <PrivateRouter exact path="/:page" component={PageRender} />
+          <PrivateRouter exact path="/:page/:id" component={PageRender} />
         </div>
       </div>
     </Router>
