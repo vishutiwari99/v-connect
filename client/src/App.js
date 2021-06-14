@@ -33,7 +33,7 @@ function App() {
       <ToastContainer />
       <div className="App">
         <input type="checkbox" hidden id="theme" />
-        <div className="container px-28 mx-auto">
+        <div className="flex flex-col md:mx-36">
           {auth.token && <Header />}
           <Alert />
           <Route exact path="/" component={auth.token ? Home : Login} />
