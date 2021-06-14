@@ -52,7 +52,7 @@ const Menu = () => {
             </ul>
 
             <div onMouseEnter={() => setDropDown(true)} onMouseLeave={() => setDropDown(false)} className="dropdown  items-center  inline-block relative">
-                <Avatar icon="account_circle" />
+                <Avatar src={auth.username.avatar} />
                 <ul className={`dropdown-menu ${dropDown ? "block" : "hidden"}  absolute  text-gray-700 pt-1`}>
                     <li className=""><Link className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" to={`/profile/${auth.username._id}`}>Profile</Link></li>
                     <li className=""><div className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap">Darkmode</div></li>
