@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom'
 import { logout } from '../../redux/actions/authAction'
-import DarkModeToggle from "react-dark-mode-toggle";
 import Avatar from './Avatar'
 
 const navLinks = [
@@ -32,7 +31,7 @@ const navLinks = [
 const Menu = () => {
     const dispatch = useDispatch();
 
-    const [isDarkMode, setIsDarkMode] = useState(() => false);
+    // const [isDarkMode, setIsDarkMode] = useState(() => false);
     const { auth } = useSelector(state => state);
     const [dropDown, setDropDown] = useState(false);
     const { pathname } = useLocation();
@@ -51,7 +50,7 @@ const Menu = () => {
                     </li>
                 ))}
                 <li onMouseEnter={() => setDropDown(true)} onMouseLeave={() => setDropDown(false)} className="dropdown  items-center  inline-flex relative lg:inline-block">
-                    <Avatar src={auth.username.avatar} />
+                    <Avatar src={auth.username.avatar} size="h-6" />
                     <ul className={`dropdown-menu ${dropDown ? "block" : "hidden"} mb-36 absolute  text-gray-700  pb-15`}>
                         <li ><Link className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" to={`/profile/${auth.username._id}`}>Profile</Link></li>
                         <li ><div className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap">Darkmode</div></li>
@@ -60,11 +59,11 @@ const Menu = () => {
                     {
                         <>
 
-                            <span class="material-icons">
+                            <span className="material-icons">
                                 expand_more
                             </span>
 
-                            <span class="material-icons">
+                            <span className="material-icons">
                                 expand_less
                             </span>
                         </>
