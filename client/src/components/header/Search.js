@@ -30,8 +30,8 @@ const Search = () => {
     }, [search, auth.token, dispatch])
 
     return (
-        <form>
-            <div className="relative  lg:flex items-center">
+        <form className="flex-grow ml-2">
+            <div className="relative lg:flex items-center">
                 <input className="pl-6  rounded-lg focus:outline-none focus:shadow-md" type="text" name="search" value={search} placeholder="Search"
                     onChange={e => setSearch(e.target.value.toLowerCase().replace(/ /g, ''))}
                 />
@@ -46,7 +46,7 @@ const Search = () => {
                     </span>
                 }
             </div>
-            <div className='absolute'>
+            <div className='absolute flex flex-col'>
                 {
                     users &&
                     users.map(user => (
