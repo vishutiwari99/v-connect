@@ -26,7 +26,6 @@ const Search = () => {
                     })
                 })
         }
-        console.log(users)
     }, [search, auth.token, dispatch])
 
     return (
@@ -50,7 +49,7 @@ const Search = () => {
                 {
                     users &&
                     users.map(user => (
-                        <Link key={user._id} to={`/profile/${user._id}`}>
+                        <Link onClick={() => setSearch('')} key={user._id} to={`/profile/${user._id}`}>
                             <UserCard user={user} />
                         </Link>
                     ))
