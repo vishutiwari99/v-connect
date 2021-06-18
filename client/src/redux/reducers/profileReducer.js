@@ -14,6 +14,7 @@ const profileReducer = (state = initialState, action) => {
                 loading: action.payload
             };
         case PROFILE_TYPES.GET_USER:
+            console.log(action.payload)
             return {
                 ...state,
                 users: [...state.users, action.payload.user]
