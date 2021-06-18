@@ -1,16 +1,12 @@
 import React from 'react'
 import Loader from "react-loader-spinner";
 
-const Loading = () => {
+import Spinner from '../../images/Spinner-1s-200px.svg'
+
+const Loading = ({ size }) => {
     return (
-        <div className="">
-            <Loader
-                type="Rings"
-                color="#00BFFF"
-                height={100}
-                width={100}
-                timeout={1000} //3 secs
-            />
+        <div className="flex items-center align-middle justify-center">
+            <img src={Spinner} className={size} alt="spinner" />
         </div>
     )
 }
