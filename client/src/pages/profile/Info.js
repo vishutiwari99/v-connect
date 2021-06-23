@@ -3,16 +3,18 @@ import Avatar from '../../components/header/Avatar';
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { getProfileUsers } from '../../redux/actions/profileAction';
+import EditProfile from './EditProfile';
 
 const Info = () => {
     const { id } = useParams();
     const { auth, profile } = useSelector(state => state);
     const dispatch = useDispatch();
     const [userData, setUserData] = useState([]);
+    const [onEdit, setOnEdit] = useState(false)
 
     useEffect(() => {
-        if (id === auth.username._id) {
-            setUserData([auth.username]);
+        if (id === auth.user._id) {
+            setUserData([auth.user]);
         } else {
             dispatch(getProfileUsers({ users: profile.users, id, auth }))
             const newData = profile.users.filter(user => user._id === id)
@@ -30,7 +32,7 @@ const Info = () => {
                         <div>
                             <div className="flex justify-between items-center w-56 lg:w-64">
                                 <h2 className="text-4xl font-bold">{user.username}</h2>
-                                <button className="transition duration-500 border-2 border-blue-400  bg-white text-blue-400 hover:bg-blue-400 hover:text-white py-2 px-4 rounded">
+                                <button onClick={() => setOnEdit(true)} className="transition duration-500 border-2 border-blue-400  bg-white text-blue-400 hover:bg-blue-400 hover:text-white py-2 px-4 rounded">
                                     Edit Profile
                                 </button>
                             </div>
@@ -50,6 +52,10 @@ const Info = () => {
                             </a>
                             <p>{user.story}</p>
                         </div>
+                        {
+                            onEdit && <EditProfile user={user} setOnEdit={setOnEdit} />
+                        }
+
                     </div>
 
                 ))

@@ -22,7 +22,7 @@ const Alert = () => {
     return (
         <>
             {alert.error && errorToast(alert.error)}
-            {!alert.loading && <Loading />}
+            {alert.loading && <Loading />}
             {alert.success && successToast(alert.success)}
         </>
     )

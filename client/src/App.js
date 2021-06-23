@@ -28,6 +28,7 @@ function App() {
     dispatch(refreshToken())
   }, [dispatch])
 
+
   return (
     <Router>
       <ToastContainer />
@@ -35,10 +36,9 @@ function App() {
         <input type="checkbox" hidden id="theme" />
         <div className="flex flex-col ">
           {auth.token && <Header />}
-          <Alert />
           <Route exact path="/" component={auth.token ? Home : Login} />
+          <Alert />
           <Route exact path="/register" component={Register} />
-
           <PrivateRouter exact path="/:page" component={PageRender} />
           <PrivateRouter exact path="/:page/:id" component={PageRender} />
         </div>

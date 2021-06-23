@@ -50,9 +50,9 @@ const Menu = () => {
                     </li>
                 ))}
                 <li onMouseEnter={() => setDropDown(true)} onMouseLeave={() => setDropDown(false)} className="dropdown  items-center  inline-flex relative lg:inline-block">
-                    <Avatar src={auth.username.avatar} size="h-6" />
+                    <Avatar src={auth.user.avatar} size="h-6" />
                     <ul className={`dropdown-menu ${dropDown ? "block" : "hidden"} mb-36 absolute  text-gray-700  pb-15`}>
-                        <li ><Link className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" to={`/profile/${auth.username._id}`}>Profile</Link></li>
+                        <li ><Link className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" to={`/profile/${auth.user._id}`}>Profile</Link></li>
                         <li ><div className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap">Darkmode</div></li>
                         <li ><Link className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={() => dispatch(logout())} to="/">Logout</Link></li>
                     </ul>
