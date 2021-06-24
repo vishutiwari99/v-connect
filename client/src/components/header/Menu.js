@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom'
 import { logout } from '../../redux/actions/authAction'
-import Avatar from './Avatar'
+import Avatar from '../../components/Avatar'
 
 const navLinks = [
     {
