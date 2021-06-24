@@ -1,4 +1,5 @@
-import { getDataAPI } from '../../utils/fetchData';
+import { getDataAPI, patchDataAPI } from '../../utils/fetchData';
+import { imageUpload } from '../../utils/imageUpload';
 import { GLOBALTYPES } from './globalTypes';
 
 export const PROFILE_TYPES = {
@@ -23,5 +24,32 @@ export const getProfileUsers = ({ users, id, auth }) => async (dispatch) => {
             dispatch({ type: GLOBALTYPES.ALERT, payload: { error: err.response.data.msg } })
 
         }
+    }
+}
+
+export const updateProfileUser = ({ userData, avatar, auth }) => async (dispatch) => {
+
+    if (!userData.fullname)
+        return dispatch({ type: GLOBALTYPES.ALERT, payload: { error: "Please add your fullname" } })
+    if (userData.fullname.length > 25)
+        return dispatch({ type: GLOBALTYPES.ALERT, payload: { error: "Your fullname is too long" } })
+    if (userData.story.length > 200)
+        return dispatch({ type: GLOBALTYPES.ALERT, payload: { error: "Your Story is too long" } })
+
+    try {
+        let media;
+        dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
+        if (avatar) media = await imageUpload([avatar])
+        const res = await patchDataAPI("user", {
+            ...userData,
+            avatar: avatar ? media[0].url : auth.user.avatar
+        }, auth.token)
+        console.log("Response", res);
+        // dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } });
+
+
+    } catch (err) {
+        dispatch({ type: GLOBALTYPES.ALERT, payload: { error: err.response.data.msg } });
+
     }
 }

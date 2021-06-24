@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import Avatar from '../../components/header/Avatar';
+import Avatar from '../../components/Avatar';
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { getProfileUsers } from '../../redux/actions/profileAction';
 import EditProfile from './EditProfile';
+import FollowBtn from '../../components/FollowBtn';
 
 const Info = () => {
     const { id } = useParams();
@@ -28,13 +29,17 @@ const Info = () => {
             {
                 userData.map(user => (
                     <div className="flex flex-col items-center justify-between mx-auto max-w-md lg:flex-row" key={user._id}>
-                        <Avatar src={user.avatar} />
+                        <Avatar src={user.avatar} round="rounded-full" />
                         <div>
                             <div className="flex justify-between items-center w-56 lg:w-64">
                                 <h2 className="text-4xl font-bold">{user.username}</h2>
-                                <button onClick={() => setOnEdit(true)} className="transition duration-500 border-2 border-blue-400  bg-white text-blue-400 hover:bg-blue-400 hover:text-white py-2 px-4 rounded">
-                                    Edit Profile
-                                </button>
+                                {
+                                    user._id === auth.user._id ?
+                                        <button onClick={() => setOnEdit(true)} className="transition duration-500 border-2 border-blue-400  bg-white text-blue-400 hover:bg-blue-400 hover:text-white py-2 px-4 rounded">
+                                            Edit Profile
+                                        </button> : <FollowBtn />
+                                }
+
                             </div>
                             <div className="flex justify-between">
                                 <span className="text-blue-400">
@@ -53,7 +58,7 @@ const Info = () => {
                             <p>{user.story}</p>
                         </div>
                         {
-                            onEdit && <EditProfile user={user} setOnEdit={setOnEdit} />
+                            onEdit && <EditProfile setOnEdit={setOnEdit} />
                         }
 
                     </div>

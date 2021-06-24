@@ -10,3 +10,30 @@ export const checkImage = (file) => {
 
     return err;
 }
+
+
+export const imageUpload = async (images) => {
+    let imgArr = [];
+    for (const item of images) {
+        const formData = new FormData()
+
+        if (item.camera) {
+            formData.append("file", item.camera)
+        } else {
+            formData.append("file", item)
+        }
+
+        formData.append("upload_preset", "er9ypsdt")
+        formData.append("cloud_name", "shoppingcart-vaibhav")
+
+        const res = await fetch("https://api.cloudinary.com/v1_1/shoppingcart-vaibhav/upload", {
+            method: "POST",
+            body: formData
+        })
+
+        const data = await res.json()
+        imgArr.push({ public_id: data.public_id, url: data.secure_url })
+        console.log("Image Upload", data)
+    }
+    return imgArr;
+}

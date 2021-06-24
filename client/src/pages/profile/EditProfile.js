@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { GLOBALTYPES } from '../../redux/actions/globalTypes'
+import { updateProfileUser } from '../../redux/actions/profileAction'
 
 import { checkImage } from '../../utils/imageUpload'
 
@@ -34,19 +35,24 @@ const EditProfile = ({ user, setOnEdit }) => {
         setAvatar(file)
     }
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(updateProfileUser({ userData, avatar, auth }))
+    }
+
     return (
         <div className="absolute top-0 left-0 w-full  bg-gray-600  overflow-auto">
-            <span style={{ fontSize: '3rem' }} onClick={() => setOnEdit(false)} className="material-icons cursor-pointer  m-2 text-white hover:text-gray-300 absolute right-0">
+            <span style={{ fontSize: '3rem' }} onClick={() => setOnEdit(false)} className="material-icons cursor-pointer  mt-4 m-2 text-black hover:text-gray-300 absolute right-0">
                 close
             </span>
-            <form className="flex  max-w-xl  bg-white p-1 rounded-lg m-5 mx-auto flex-col" action="">
-                <div className=" flex flex-col justify-center items-center w-58 group   overflow-hidden rounded-2xl relative m-4 mx-auto ">
-                    <img className='block' src={avatar ? URL.createObjectURL(avatar) : auth.user.avatar} alt="avatar" />
-                    <span className='absolute left-16  justify-center items-center -bottom-12 group-hover:bottom-2 transition delay-300 duration-300 ease-in-out'>
-                        <span className="material-icons text-yellow-600">
+            <form onSubmit={handleSubmit} className="flex  max-w-xl  bg-white p-1 rounded-lg m-5 mx-auto flex-col" action="">
+                <div className=" flex flex-col justify-center items-center w-58  group   overflow-hidden rounded-full relative m-4 mx-auto ">
+                    <img className='inline object-cover h-40 w-40 rounded-full' src={avatar ? URL.createObjectURL(avatar) : auth.user.avatar} alt="avatar" />
+                    <span className='absolute left-13  flex flex-col  justify-center items-center -bottom-12 group-hover:bg-gray-400 w-full  group-hover:bottom-0 '>
+                        <span className="material-icons text-white">
                             photo_camera
                         </span>
-                        <p className="text-yellow-600">Change</p>
+                        <p className="text-white">Change</p>
                         <input type="file" className="absolute top-0 left-0 w-full h-full cursor-pointer opacity-0 " name="file" id="file_up"
                             accept="image/*" onChange={changeAvatar} />
                     </span>
