@@ -1,5 +1,5 @@
 import React from 'react'
-import Avatar from './header/Avatar'
+import Avatar from '../components/Avatar'
 
 const UserCard = ({ user }) => {
     return (
