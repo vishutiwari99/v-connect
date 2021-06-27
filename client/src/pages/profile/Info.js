@@ -29,7 +29,7 @@ const Info = () => {
             {
                 userData.map(user => (
                     <div className="flex flex-col items-center justify-between mx-auto max-w-md lg:flex-row" key={user._id}>
-                        <Avatar src={user.avatar} round="rounded-full" />
+                        <Avatar src={user.avatar} classProps="h-32 w-48 rounded-full" />
                         <div>
                             <div className="flex justify-between items-center w-56 lg:w-64">
                                 <h2 className="text-4xl font-bold">{user.username}</h2>
