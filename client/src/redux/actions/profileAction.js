@@ -1,6 +1,6 @@
 import { getDataAPI, patchDataAPI } from '../../utils/fetchData';
 import { imageUpload } from '../../utils/imageUpload';
-import { GLOBALTYPES } from './globalTypes';
+import { GLOBALTYPES, DeleteData } from './globalTypes';
 
 export const PROFILE_TYPES = {
     LOADING: 'LOADING_PROFILE',
@@ -45,11 +45,64 @@ export const updateProfileUser = ({ userData, avatar, auth }) => async (dispatch
             avatar: avatar ? media[0].url : auth.user.avatar
         }, auth.token)
         console.log("Response", res);
-        // dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } });
+        dispatch({
+            type: GLOBALTYPES.AUTH, payload: {
+                ...auth,
+                user: {
+                    ...avatar.user,
+                    ...userData,
+                    avatar: avatar ? media[0].url : auth.user.avatar,
+
+                }
+            }
+        });
+        dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } });
+
 
 
     } catch (err) {
         dispatch({ type: GLOBALTYPES.ALERT, payload: { error: err.response.data.msg } });
 
     }
+}
+
+export const follow = ({ users, user, auth }) => async (dispatch) => {
+    let newUser = { ...user, followers: [...user.followers, auth.user] }
+    dispatch(
+        {
+            type: PROFILE_TYPES.FOLLOW,
+            payload: newUser
+
+        }
+    )
+    dispatch({
+        type: GLOBALTYPES.AUTH,
+        payload: {
+            ...auth,
+            user: { ...auth.user, following: [...auth.user.following, newUser] }
+        }
+    })
+
+}
+export const unfollow = ({ users, user, auth }) => async (dispatch) => {
+    let newUser = { ...user, followers: DeleteData(user.followers, auth.user._id) }
+    console.log(newUser);
+    dispatch(
+        {
+            type: PROFILE_TYPES.UNFOLLOW,
+            payload: newUser
+
+        }
+    )
+    dispatch({
+        type: GLOBALTYPES.AUTH,
+        payload: {
+            ...auth,
+            user: {
+                ...auth.user,
+                following: DeleteData(auth.user.following, newUser._id)
+            }
+        }
+    })
+
 }

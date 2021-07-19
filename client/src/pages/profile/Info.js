@@ -37,7 +37,7 @@ const Info = () => {
                                     user._id === auth.user._id ?
                                         <button onClick={() => setOnEdit(true)} className="transition duration-500 border-2 border-blue-400  bg-white text-blue-400 hover:bg-blue-400 hover:text-white py-2 px-4 rounded">
                                             Edit Profile
-                                        </button> : <FollowBtn />
+                                        </button> : <FollowBtn user={user} />
                                 }
 
                             </div>
